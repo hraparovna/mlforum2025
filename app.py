@@ -115,23 +115,27 @@ def run_tournament(api_key):
             text2 = Path(f"answers/{a2}.txt").read_text()
             info1 = get_agent_info(agents_df, a1)
             info2 = get_agent_info(agents_df, a2)
-            yield {
-                "agent1_info": str(info1),
-                "agent2_info": str(info2),
-                "text1": text1,
-                "text2": text2,
-                "result": "Сравнение...",
-                "log": result_log,
-            }
+            yield (
+                str(info1),
+                str(info2),
+                text1,
+                text2,
+                "Сравнение...",
+                result_log,
+            )
             try:
                 choice = call_judge(api_key, text1, text2)
             except Exception as e:
                 choice = "error"
                 result_log += f"Ошибка сравнения {a1} vs {a2}: {e}\n"
-                yield {
-                    "result": "Ошибка сравнения",
-                    "log": result_log,
-                }
+                yield (
+                    None,
+                    None,
+                    None,
+                    None,
+                    "Ошибка сравнения",
+                    result_log,
+                )
                 continue
             if choice.strip() == "1":
                 winner = a1
@@ -139,23 +143,27 @@ def run_tournament(api_key):
                 winner = a2
             winners.append(winner)
             result_log += f"Агент {winner} побеждает в паре {a1} vs {a2}.\n"
-            yield {
-                "result": f"Победил агент {winner}",
-                "log": result_log,
-            }
+            yield (
+                None,
+                None,
+                None,
+                None,
+                f"Победил агент {winner}",
+                result_log,
+            )
         competitors = winners
         round_num += 1
     champion = competitors[0]
     champion_info = get_agent_info(agents_df, champion)
     result_log += f"\n### Победитель турнира — агент {champion}""\n" + str(champion_info)
-    yield {
-        "agent1_info": "",
-        "agent2_info": "",
-        "text1": "",
-        "text2": "",
-        "result": f"Победитель: агент {champion}",
-        "log": result_log,
-    }
+    yield (
+        "",
+        "",
+        "",
+        "",
+        f"Победитель: агент {champion}",
+        result_log,
+    )
 
 
 def start(api_key_text):
@@ -181,14 +189,14 @@ def build_interface():
         start_btn.click(
             start,
             inputs=api_key_inp,
-            outputs={
-                "agent1_info": agent1_info,
-                "agent2_info": agent2_info,
-                "text1": text1,
-                "text2": text2,
-                "result": result,
-                "log": log,
-            },
+            outputs=[
+                agent1_info,
+                agent2_info,
+                text1,
+                text2,
+                result,
+                log,
+            ],
         )
     return demo
 
