@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 import os
 import random
+=======
+import random
+import os
+>>>>>>> e27a038 (sync)
 import pandas as pd
 from pathlib import Path
 import gradio as gr
@@ -52,9 +57,13 @@ UralsPrice (цена нефти марки Urals)
 """
 
 
+<<<<<<< HEAD
 
 def load_api_key(env_path=".env"):
     """Return API key from .env or environment variable."""
+=======
+def load_api_key(env_path=".env"):
+>>>>>>> e27a038 (sync)
     if os.path.exists(env_path):
         for line in Path(env_path).read_text().splitlines():
             if line.startswith("API_KEY="):
@@ -76,13 +85,23 @@ def list_agents(answers_dir="answers"):
     return [int(Path(p).stem) for p in Path(answers_dir).glob("*.txt")]
 
 
+<<<<<<< HEAD
 def read_answer(agent_id, answers_dir="answers"):
     return Path(answers_dir) / f"{agent_id}.txt"
+=======
+def read_answer(agent_id: int, answers_dir: str = "answers") -> str:
+    path = Path(answers_dir) / f"{agent_id}.txt"
+    return path.read_text(encoding="utf-8")
+>>>>>>> e27a038 (sync)
 
 
 def call_judge(api_key, model_1, model_2, temperature=0.2):
     client = openai.OpenAI(api_key=api_key, base_url="https://bothub.chat/api/v2/openai/v1")
     prompt = PROMPT_TEMPLATE.format(model_1=model_1, model_2=model_2)
+<<<<<<< HEAD
+=======
+    print(prompt)
+>>>>>>> e27a038 (sync)
     response = client.chat.completions.create(
         model="o3",
         messages=[{"role": "user", "content": prompt}],
@@ -111,8 +130,13 @@ def run_tournament(api_key):
                 continue
             a1 = competitors[i]
             a2 = competitors[i + 1]
+<<<<<<< HEAD
             text1 = Path(f"answers/{a1}.txt").read_text()
             text2 = Path(f"answers/{a2}.txt").read_text()
+=======
+            text1 = read_answer(a1)
+            text2 = read_answer(a2)
+>>>>>>> e27a038 (sync)
             info1 = get_agent_info(agents_df, a1)
             info2 = get_agent_info(agents_df, a2)
             yield (
@@ -168,12 +192,29 @@ def run_tournament(api_key):
 
 def start(api_key_text):
     key = api_key_text or load_api_key()
+<<<<<<< HEAD
     return run_tournament(key)
+=======
+    for update in run_tournament(key):
+        yield update
+>>>>>>> e27a038 (sync)
 
 
 def build_interface():
     with gr.Blocks() as demo:
+<<<<<<< HEAD
         gr.Image("logo.png", elem_id="logo")
+=======
+        gr.Image(
+            "logo.png",  # путь к картинке
+            elem_id="logo",  # ваш id остаётся
+            width=240,  # ширина превью в px
+            height="auto",  # можно не задавать, тогда сохранится пропорция
+            min_width=240,  # иначе Gradio оставит минимум 160 px
+            show_label=False,  # убираем подпись
+            show_download_button=False
+        )
+>>>>>>> e27a038 (sync)
         api_key_inp = gr.Textbox(label="API Key", type="password", value=load_api_key() or "")
         start_btn = gr.Button("Начать соревнование")
         with gr.Row():
@@ -202,4 +243,8 @@ def build_interface():
 
 
 if __name__ == "__main__":
+<<<<<<< HEAD
     build_interface().launch()
+=======
+    build_interface().launch()
+>>>>>>> e27a038 (sync)

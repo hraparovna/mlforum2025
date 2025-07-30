@@ -19,4 +19,8 @@ Run the application with:
 ```bash
 python app.py
 ```
+<<<<<<< HEAD
 The interface will display the logo and allow you to start the tournament. Answers are read from the `answers` folder and agent metadata from `agents.csv`.
+=======
+The interface will display the logo and allow you to start the tournament. Answers are read from the `answers` folder and agent metadata from `agents.csv`.
+>>>>>>> e27a038 (sync)
