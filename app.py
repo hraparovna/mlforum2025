@@ -60,23 +60,26 @@ def load_api_key(env_path=".env"):
     return os.getenv("API_KEY")
 
 def load_agents(csv_path="agents.csv"):
-    return pd.read_csv(csv_path)
+    return pd.read_csv(csv_path, encoding="utf-8-sig")
 
 
 def get_agent_info(df, agent_id):
-    row = df[df["agent_id"] == agent_id]
+    cols = ["agent_id", "demand", "supply", "personality"]
+    row = df.loc[df["agent_id"] == agent_id, cols]
     if row.empty:
         return {}
     return row.iloc[0].to_dict()
 
 
-def list_agents(answers_dir="answers"):
-    return [int(Path(p).stem) for p in Path(answers_dir).glob("*.txt")]
+def list_agents(df: pd.DataFrame) -> list:
+    return df["agent_id"].tolist()
 
 
-def read_answer(agent_id: int, answers_dir: str = "answers") -> str:
-    path = Path(answers_dir) / f"{agent_id}.txt"
-    return path.read_text(encoding="utf-8")
+def read_answer(df: pd.DataFrame, agent_id: int) -> str:
+    row = df[df["agent_id"] == agent_id]
+    if row.empty:
+        return ""
+    return row.iloc[0]["answer"]
 
 
 def call_judge(api_key, model_1, model_2, temperature=0.2):
@@ -94,9 +97,11 @@ def call_judge(api_key, model_1, model_2, temperature=0.2):
     return content
 
 
-def run_tournament(api_key):
+def run_tournament(api_key, subset=None):
     agents_df = load_agents()
-    competitors = list_agents()
+    competitors = list_agents(agents_df)
+    if subset and subset > 1:
+        competitors = random.sample(competitors, min(subset, len(competitors)))
     random.shuffle(competitors)
 
     round_num = 1
@@ -111,8 +116,8 @@ def run_tournament(api_key):
                 continue
             a1 = competitors[i]
             a2 = competitors[i + 1]
-            text1 = read_answer(a1)
-            text2 = read_answer(a2)
+            text1 = read_answer(agents_df, a1)
+            text2 = read_answer(agents_df, a2)
             info1 = get_agent_info(agents_df, a1)
             info2 = get_agent_info(agents_df, a2)
             yield (
@@ -166,13 +171,13 @@ def run_tournament(api_key):
     )
 
 
-def start(api_key_text):
+def start(api_key_text, subset=None):
     key = api_key_text or load_api_key()
-    for update in run_tournament(key):
+    for update in run_tournament(key, subset=subset):
         yield update
 
 
-def build_interface():
+def build_interface(subset=None):
     with gr.Blocks() as demo:
         gr.Image(
             "logo.png",  # путь к картинке
@@ -195,8 +200,11 @@ def build_interface():
         result = gr.Markdown()
         log = gr.Markdown()
 
+        def on_start(key):
+            yield from start(key, subset=subset)
+
         start_btn.click(
-            start,
+            on_start,
             inputs=api_key_inp,
             outputs=[
                 agent1_info,
@@ -211,4 +219,15 @@ def build_interface():
 
 
 if __name__ == "__main__":
-    build_interface().launch()
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--subset",
+        type=int,
+        default=None,
+        help="Randomly select this many agents for the tournament",
+    )
+    args = parser.parse_args()
+
+    build_interface(subset=args.subset).launch()

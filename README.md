@@ -17,6 +17,6 @@ This repository contains a Gradio application that runs a single-elimination tou
 
 Run the application with:
 ```bash
-python app.py
+python app.py [--subset N]
 ```
 The interface will display the logo and allow you to start the tournament. Answers are read from the `answers` folder and agent metadata from `agents.csv`.
