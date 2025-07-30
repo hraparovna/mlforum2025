@@ -1,0 +1,110 @@
+{
+  "2025-Q3": {
+    "CPI": 9.08,
+    "GDP": 2.58,
+    "ExchangeRate": 75.84,
+    "KeyRate": 19.3,
+    "InflationExpectations": 13.83,
+    "PriceExpectations": 13,
+    "UralsPrice": 53.19
+	},
+  "2025-Q4": {
+    "CPI": 9.07,
+    "GDP": 1.83,
+    "ExchangeRate": 74.73,
+    "KeyRate": 19.02,
+    "InflationExpectations": 13.54,
+    "PriceExpectations": 13.15,
+    "UralsPrice": 53.49
+  },
+  "2026-Q1": {
+    "CPI": 9.07,
+    "GDP": 2.3,
+    "ExchangeRate": 74.49,
+    "KeyRate": 18.9,
+    "InflationExpectations": 13.64,
+    "PriceExpectations": 14,
+    "UralsPrice": 53.47
+  },
+  "2026-Q2": {
+    "CPI": 9.07,
+    "GDP": 2.0,
+    "ExchangeRate": 74.44,
+    "KeyRate": 18.85,
+    "InflationExpectations": 13.6,
+    "PriceExpectations": 12,
+    "UralsPrice": 53.47
+  },
+  "2026-Q3": {
+    "CPI": 9.07,
+    "GDP": 2.19,
+    "ExchangeRate": 74.42,
+    "KeyRate": 18.83,
+    "InflationExpectations": 13.62,
+    "PriceExpectations": 12,
+    "UralsPrice": 53.47
+  },
+  "2026-Q4": {
+    "CPI": 9.07,
+    "GDP": 2.07,
+    "ExchangeRate": 74.42,
+    "KeyRate": 18.82,
+    "InflationExpectations": 13.61,
+    "PriceExpectations": 14,
+    "UralsPrice": 53.47
+  },
+  "2027-Q1": {
+    "CPI": 9.07,
+    "GDP": 2.15,
+    "ExchangeRate": 74.42,
+    "KeyRate": 18.82,
+    "InflationExpectations": 13.61,
+    "PriceExpectations": 15,
+    "UralsPrice": 53.47
+  },
+  "2027-Q2": {
+    "CPI": 9.07,
+    "GDP": 2.1,
+    "ExchangeRate": 74.42,
+    "KeyRate": 18.82,
+    "InflationExpectations": 13.61,
+    "PriceExpectations": 14.5,
+    "UralsPrice": 53.47
+  },
+  "2027-Q3": {
+    "CPI": 9.07,
+    "GDP": 2.13,
+    "ExchangeRate": 74.42,
+    "KeyRate": 18.82,
+    "InflationExpectations": 13.61,
+    "PriceExpectations": 14.2,
+    "UralsPrice": 53.47,
+  },
+  "2027-Q4": {
+    "CPI": 9.07,
+    "GDP": 2.11,
+    "ExchangeRate": 74.42,
+    "KeyRate": 18.82,
+    "InflationExpectations": 13.61,
+    "PriceExpectations": 14.2,
+    "UralsPrice": 53.47,
+  },
+  "2028-Q1": {
+    "CPI": 9.07,
+    "GDP": 2.12,
+    "ExchangeRate": 74.42,
+    "KeyRate": 18.82,
+    "InflationExpectations": 13.61,
+    "PriceExpectations": 13.8,
+    "UralsPrice": 53.47,
+  },
+  "2028-Q2": {
+    "CPI": 9.07,
+    "GDP": 2.11,
+    "ExchangeRate": 74.42,
+    "KeyRate": 18.82,
+    "InflationExpectations": 13.61,
+    "PriceExpectations": 12.3,
+    "UralsPrice": 53.47,
+  }
+}
