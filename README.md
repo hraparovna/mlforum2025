@@ -1,4 +1,12 @@
 # mlforum2025
+title: MLForum 2025
+emoji: 🏆           # любая emoji или пусто
+colorFrom: indigo
+colorTo: cyan
+sdk: gradio        # gradio | streamlit | static | docker
+sdk_version: "4.31.1"   # опционально; уберите, если не важно
+app_file: app.py   # точное имя вашего основного скрипта
+pinned: false
 
 This repository contains a Gradio application that runs a single-elimination tournament where an LLM judges pairs of agent forecasts.
 
